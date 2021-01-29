@@ -54,7 +54,7 @@ describe('Funciones', function() {
   })
 
   describe('numeroSimetrico', function() {
-    it('should return true for 4424', function() {
+    it('should return true for 4224', function() {
         expect(numeroSimetrico(4224)).toBe(true);
     });
     it('should return false for 2341', function() {
