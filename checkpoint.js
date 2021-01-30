@@ -3,16 +3,37 @@
 
 
 function soloNumeros(array) {
+  // La manera mas eficiente que consegui, investigando un poco sobre metodos
+  return array.filter( item => typeof item === 'number')
+   
+  //   Otra manera podria ser:
+  //    let numerossolos = [];
+  //    for (let i = 0; i < array.length; i++) {
+   //    if (typeof array[i] === 'number') {
+     //   numerossolos.push(array[i]);
+    //      } 
+  //        }
+    //       return numerossolos;
+    
   // La funcion llamada 'soloNumeros' recibe como argumento un arreglo de enteros y strings llamado 'array'.
   // Debe devolver un arreglo con solo los enteros.
   // Ej: 
   // soloNumeros([1, 'Henry', 2]) debe retornar [1, 2]
 
   // Tu código aca:
-
+    
+  
 }
 
 function sumaTodos(array) {
+
+  let inicio = array[0];
+  let fin = [array[1]];
+  let sumando = 0;
+  for ( let i = inicio; i <= fin; i++) {
+    sumando += i;
+  }
+  return sumando
   // La funcion llamada 'sumaTodos' recibe como argumento un array con dos numeros
   // y debe devolver la suma total entre todos los numeros dentro de ese rango
   // ej:
@@ -24,6 +45,7 @@ function sumaTodos(array) {
 }
 
 function checkInventario(inventario, item) {
+  return inventario.find((e)=> e.nombre.toString().toLowerCase() === item.toString().toLowerCase() )?.cantidad || 0;
   // La funcion 'checkInventario' recibe como argumento un array de objetos llamado 'inventario' y el nombre de un item llamado 'item'
   // Cada objeto tiene una propiedad 'nombre' y 'cantidad'.
   // La funcion debe devolver la cantidad de items que hay.
@@ -46,6 +68,12 @@ function checkInventario(inventario, item) {
 }
 
 function numeroSimetrico(num) {
+  let invertirelnumero = Number(num.toString().split('').reverse().join(''))
+  if( num === invertirelnumero) {
+    return true;
+  } return false;
+  
+
   // La funcion llamada 'numeroSimetrico' recibe como argumento un numero entero 'num'
   // Esta devuelve true o false dependiendo de si el número es simétrico o no. 
   // Un número es simétrico cuando es igual a su reverso.
@@ -57,6 +85,16 @@ function numeroSimetrico(num) {
 }
 
 function index() {
+  Array.prototype.encontraIndex = function (elemento, inicio = 0) {
+    if (inicio > this.length - 1) {
+    }
+    for (let index = inicio; index < this.length; index++) {
+      if (this[index] === elemento)
+        return index
+    } 
+    return -1
+  }
+  
   // Escribi una función encontraIndex en el prototipo de Arrays,
   // que recibe un elemento.
   // La function tiene que devolver el indice (index) del primer elemento que coincida con el pasado como parametro dentro del array.
@@ -76,17 +114,29 @@ function index() {
 
 
 function crearClasePersona() {
+  
   // Crear una clase para construir objeto de tipo Persona.
   // el constructor debe recibir:
   // nombre (string) , edad (integer) , hobbies (array de strings) , amigos (array de objetos)
   // Esta funcion debe retonar la clase Persona.
 
   class Persona {
-    constructor() {
+    constructor(nombre, edad, hobbies, amigos) {
+    this.nombre = nombre;
+    this.edad = edad;
+    this.hobbies = hobbies;
+    this.amigos = amigos;
+    {
+      
+    } 
+     
+   }
 
-    }
+    addFriend(nombre,edad) {
+      let amiguitonuevo = {nombre,edad}
 
-    addFriend(nombre, edad) {
+      this.amigos.push(amiguitonuevo)
+      
       // el metodo addFriend recibe un string nombre y un entero edad y debe agregar un objeto:
       // { nombre: nombre, edad: edad} al arreglo de amigos de la persona.
       // no debe retornar nada.
@@ -94,11 +144,15 @@ function crearClasePersona() {
     }
 
     addHobby(hobby) {
+      this.hobbies.push(hobby)
       // este método debe agregar un hobby (hobby) al arreglo de hobbies de la persona.
       // no debe retornar nada.
 
     }
     getFriends() {
+      return this.amigos.map(e=>{
+        return e.nombre
+      })
       // Escribe una función que retorne un arreglo con sólo los nombres del arreglo de amigos
       // de la persona.
       // Ej:
@@ -107,6 +161,11 @@ function crearClasePersona() {
     }
 
     getHobbies() {
+      return this.hobbies.map(e=>{
+        return e.hobbie
+      })
+      
+     
       // Escribe una función que retorne un arreglo con los hobbies de la persona
       // Ej:
       // persona.getHobbies() // retorna ['correr', 'dormir', 'nadar']
