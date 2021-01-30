@@ -44,8 +44,38 @@ function sumaTodos(array) {
   
 }
 
-function checkInventario(inventario, item) {
-  return inventario.find((e)=> e.nombre.toString().toLowerCase() === item.toString().toLowerCase() )?.cantidad || 0;
+function checkInventario(inventario, item) {  
+  // Esto puede ser undefined
+  /**
+   * encontrado: Object || undefined
+   */
+  let valorPaRetornar = 0;
+  const encontrado = (inventario.find((elemento)=>elemento.nombre === item));
+
+  if(encontrado){
+    valorPaRetornar = encontrado.cantidad
+  }
+  
+  return valorPaRetornar;
+
+  /**
+   * operador ternario
+   * "?" representa un if
+   * ":" representa un else
+   * la primera sentencia "encontrado.cantidad" representa el valor positivo
+   * la segunda sentencia "0" representa el valor negativo
+   */
+   //return  encontrado ? encontrado.cantidad : 0;
+
+  /*  
+  const encontrado = (inventario.find(function(element){
+    return element.nombre === item
+  })) 
+  return  encontrado ? encontrado.cantidad : 0;
+  */
+  
+  
+  
   // La funcion 'checkInventario' recibe como argumento un array de objetos llamado 'inventario' y el nombre de un item llamado 'item'
   // Cada objeto tiene una propiedad 'nombre' y 'cantidad'.
   // La funcion debe devolver la cantidad de items que hay.
@@ -122,20 +152,16 @@ function crearClasePersona() {
 
   class Persona {
     constructor(nombre, edad, hobbies, amigos) {
-    this.nombre = nombre;
-    this.edad = edad;
-    this.hobbies = hobbies;
-    this.amigos = amigos;
-    {
-      
-    } 
-     
-   }
+      this.nombre = nombre;
+      this.edad = edad;
+      this.hobbies = hobbies;
+      this.amigos = amigos;    
+  }
 
     addFriend(nombre,edad) {
-      let amiguitonuevo = {nombre,edad}
+      let amiguitoNuevo = {nombre,edad}
 
-      this.amigos.push(amiguitonuevo)
+      this.amigos.push(amiguitoNuevo)
       
       // el metodo addFriend recibe un string nombre y un entero edad y debe agregar un objeto:
       // { nombre: nombre, edad: edad} al arreglo de amigos de la persona.
@@ -149,6 +175,7 @@ function crearClasePersona() {
       // no debe retornar nada.
 
     }
+
     getFriends() {
       return this.amigos.map(e=>{
         return e.nombre
@@ -161,11 +188,7 @@ function crearClasePersona() {
     }
 
     getHobbies() {
-      return this.hobbies.map(e=>{
-        return e.hobbie
-      })
-      
-     
+      return this.hobbies         
       // Escribe una función que retorne un arreglo con los hobbies de la persona
       // Ej:
       // persona.getHobbies() // retorna ['correr', 'dormir', 'nadar']
@@ -173,6 +196,10 @@ function crearClasePersona() {
     }
 
     getPromedioEdad() {
+      let edad = 0;
+      this.amigos.forEach( amigo => edad += amigo.edad );
+      const promedio = edad / this.amigos.length;
+      return promedio
       // Escribe una función que retorne el promedio de edad de los amigos de una persona
       // ej, si la persona tuviera estos amigos:
       // {
@@ -193,7 +220,17 @@ function crearClasePersona() {
   return Persona;
 }
 
-function cuantosRepetidos(array, elemento) {
+function cuantosRepetidos(matrix, elemento) {
+  let contador = 0;
+  
+  matrix.forEach( array => array.forEach( e => {
+    if(e === elemento){
+      contador += 1
+    }
+  }))
+
+  return contador;
+
   // La funcion llamada 'cuantosRepetidos' recibe como argumento un array de arrays llamado 'array' y un string llamado 'elemento'
   // Cada subarray contiene strings.
   // Debe devolver la cantidad de veces que 'elemento' se repite dentro de los subarrays.
